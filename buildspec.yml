@@ -15,22 +15,19 @@ phases:
       - echo "Running Laravel setup steps..."
       - cp .env.example .env || true
       - php artisan key:generate || true
-
-  build:
-    commands:
-      - echo "Build complete. Laravel app is ready."
-  pre_build:
-    commands:
       - echo "Creating SQLite database file..."
       - mkdir -p database
       - touch database/database.sqlite
 
-
-
-      
+  build:
+    commands:
+      - echo "Build complete. Laravel app is ready."
+      - php artisan migrate || true  # Optional: run migrations automatically
 
 artifacts:
   files:
     - '**/*'
+    - .env
+    - database/database.sqlite
   base-directory: .
   discard-paths: no
