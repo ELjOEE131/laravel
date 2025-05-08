@@ -19,6 +19,15 @@ phases:
   build:
     commands:
       - echo "Build complete. Laravel app is ready."
+  pre_build:
+    commands:
+      - echo "Creating SQLite database file..."
+      - mkdir -p database
+      - touch database/database.sqlite
+
+
+
+      
 
 artifacts:
   files:
