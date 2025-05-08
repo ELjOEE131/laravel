@@ -18,16 +18,17 @@ phases:
       - echo "Creating SQLite database file..."
       - mkdir -p database
       - touch database/database.sqlite
+      - chmod 777 database/database.sqlite  # ✅ Make sure it’s writable
 
   build:
     commands:
-      - echo "Build complete. Laravel app is ready."
-      - php artisan migrate || true  # Optional: run migrations automatically
+      - echo "Running migrations..."
+      - php artisan migrate || true
 
 artifacts:
   files:
     - '**/*'
     - .env
-    - database/database.sqlite
+    - database/database.sqlite  # ✅ Explicitly include the SQLite file
   base-directory: .
   discard-paths: no
